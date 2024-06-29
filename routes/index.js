@@ -1,5 +1,6 @@
 import express from 'express';
 import AppController from '../controllers/AppController';
+import UserController from '../controllers/UsersController';
 
 // Endpoint of the API
 
@@ -15,6 +16,11 @@ const controllingRouters = ((app) => {
   // Route to the stats, should return the stats API
   router.get('/status', (req, res) => {
     AppController.getStat(req, res);
+  });
+
+  // Route to post
+  router.post('/users', (req, res) => {
+    UserController.postNew(req, res);
   });
 });
 

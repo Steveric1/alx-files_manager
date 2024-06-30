@@ -1,6 +1,7 @@
 import express from 'express';
 import AppController from '../controllers/AppController';
 import UserController from '../controllers/UsersController';
+import AuthController from '../controllers/AuthController';
 
 // Endpoint of the API
 
@@ -21,6 +22,23 @@ const controllingRouters = ((app) => {
   // Route to post
   router.post('/users', (req, res) => {
     UserController.postNew(req, res);
+  });
+
+  // should retrieve the user base on the token used
+  router.get('/users/me', (req, res) => {
+    UserController.getMe(req, res);
+  });
+
+  // Auth Controller
+
+  // should sign-in the user by generating a new authentication token
+  router.get('/connect', (req, res) => {
+    AuthController.getConnect(req, res);
+  });
+
+  // should sign-out the user based on the token
+  router.get('/disconnect', (req, res) => {
+    AuthController.getDisconnect(req, res);
   });
 });
 

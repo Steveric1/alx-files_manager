@@ -2,6 +2,7 @@ import express from 'express';
 import AppController from '../controllers/AppController';
 import UserController from '../controllers/UsersController';
 import AuthController from '../controllers/AuthController';
+import FilesController from '../controllers/FilesController';
 
 // Endpoint of the API
 
@@ -39,6 +40,11 @@ const controllingRouters = ((app) => {
   // should sign-out the user based on the token
   router.get('/disconnect', (req, res) => {
     AuthController.getDisconnect(req, res);
+  });
+
+  // post upload route
+  router.post('/files', (req, res) => {
+    FilesController.postUpload(req, res);
   });
 });
 

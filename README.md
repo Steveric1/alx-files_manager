@@ -552,4 +552,6 @@ Repo:
 GitHub repository: alx-files_manager
 File: utils/, controllers/FilesController.js, worker.js
 Copyright © 2024 ALX, All rights reserved.
-
+AUTHOR
+ERIC STEPHEN
+OLAYIWOLA YUNUS ABAYOMI (yuntech)

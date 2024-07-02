@@ -56,6 +56,16 @@ const controllingRouters = ((app) => {
   router.get('/files', (req, res) => {
     FilesController.getIndex(req, res);
   });
+
+  // publish the file document
+  router.put('/files/:id/publish', (req, res) => {
+    FilesController.putPublish(req, res);
+  });
+
+  // unpulish the file document
+  router.put('/files/:id/unpublish', (req, res) => {
+    FilesController.putUnpublish(req, res);
+  });
 });
 
 export default controllingRouters;

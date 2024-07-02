@@ -11,7 +11,7 @@ const basicUtils = {
    * @return {boolean} true if valid, false if not
    */
 
-  isValid(id) {
+  isValidId(id) {
     try {
       if (ObjectId(id));
     } catch (err) {

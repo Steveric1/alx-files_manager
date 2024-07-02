@@ -124,61 +124,15 @@ class FilesController {
    * @param {*} res - respond
    * @return the file document with a status code 200
    */
-  static async putPublish(req, res) {
-    const { id: fileId } = req.params;
-    const { userId } = await UserUtils.getUserIdAndKey(req);
-
-    // Validate userId
-    if (!basicUtils.isValidId(userId)) return res.status(401).send({ error: 'Unauthorized' });
-
-    // Retrieve user
-    const user = await UserUtils.getUser({ _id: ObjectId(userId) });
-    if (!user) return res.status(401).send({ error: 'Unauthorized' });
-
-    // Validate fileId
-    if (!basicUtils.isValidId(fileId)) return res.status(404).send({ error: 'Not found' });
-
-    // Retrieve file document
-    const fileDocument = await fileUtils.getFile({
-      _id: ObjectId(fileId),
-      userId: ObjectId(userId),
-    });
-
-    // Check if file document exists
-    if (!fileDocument) return res.status(404).send({ error: 'Not Found' });
-
-    // Update the isPublic field
-    const result = await fileUtils.updateFile(
-      {
-        _id: ObjectId(fileId),
-        userId: ObjectId(userId),
-      },
-      { $set: { isPublic: true } },
+  static async putPublish(request, response) {
+    const { error, code, updatedFile } = await fileUtils.publishUnpublish(
+      request,
+      true,
     );
 
-    const {
-      _id: id,
-      userId: resultUserId,
-      name,
-      type,
-      isPublic,
-      parentId,
-    } = result.value;
+    if (error) return response.status(code).send({ error });
 
-    const updatedFile = {
-      id,
-      userId: resultUserId,
-      name,
-      type,
-      isPublic,
-      parentId,
-    };
-
-    // Process the updated file document
-    // const updatedFile = await fileUtils.processFile(result);
-
-    // Return the updated file document
-    return res.status(200).send(updatedFile);
+    return response.status(code).send(updatedFile);
   }
 
   /**
@@ -188,60 +142,15 @@ class FilesController {
    * @param {*} res - respond
    * @return the file document with a status code 200
    */
-  static async putUnpublish(req, res) {
-    const { id: fileId } = req.params;
-    const { userId } = await UserUtils.getUserIdAndKey(req);
-
-    // Validate userId
-    if (!basicUtils.isValidId(userId)) return res.status(401).send({ error: 'Unauthorized' });
-
-    // Retrieve user
-    const user = await UserUtils.getUser({ _id: ObjectId(userId) });
-    if (!user) return res.status(401).send({ error: 'Unauthorized' });
-
-    // Validate fileId
-    if (!basicUtils.isValidId(fileId)) return res.status(404).send({ error: 'Not found' });
-
-    // Retrieve file document
-    const fileDocument = await fileUtils.getFile({
-      _id: ObjectId(fileId),
-      userId: ObjectId(userId),
-    });
-
-    // Check if file document exists
-    if (!fileDocument) return res.status(404).send({ error: 'Not Found' });
-
-    // Update the isPublic field
-    const result = await fileUtils.updateFile(
-      {
-        _id: ObjectId(fileId),
-        userId: ObjectId(userId),
-      },
-      { $set: { isPublic: false } },
+  static async putUnpublish(request, response) {
+    const { error, code, updatedFile } = await fileUtils.publishUnpublish(
+      request,
+      false,
     );
 
-    const {
-      _id: id,
-      userId: resultUserId,
-      name,
-      type,
-      isPublic,
-      parentId,
-    } = result.value;
+    if (error) return response.status(code).send({ error });
 
-    const updatedFile = {
-      id,
-      userId: resultUserId,
-      name,
-      type,
-      isPublic,
-      parentId,
-    };
-    // Process the updated file document
-    // const updatedFile = await fileUtils.processFile(result);
-
-    // Return the updated file document
-    return res.status(200).send(updatedFile);
+    return response.status(code).send(updatedFile);
   }
 }
 

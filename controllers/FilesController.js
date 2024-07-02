@@ -156,8 +156,26 @@ class FilesController {
       { $set: { isPublic: true } },
     );
 
+    const {
+      _id: id,
+      userId: resultUserId,
+      name,
+      type,
+      isPublic,
+      parentId,
+    } = result.value;
+
+    const updatedFile = {
+      id,
+      userId: resultUserId,
+      name,
+      type,
+      isPublic,
+      parentId,
+    };
+
     // Process the updated file document
-    const updatedFile = await fileUtils.processFile(result);
+    // const updatedFile = await fileUtils.processFile(result);
 
     // Return the updated file document
     return res.status(200).send(updatedFile);
@@ -202,8 +220,25 @@ class FilesController {
       { $set: { isPublic: false } },
     );
 
+    const {
+      _id: id,
+      userId: resultUserId,
+      name,
+      type,
+      isPublic,
+      parentId,
+    } = result.value;
+
+    const updatedFile = {
+      id,
+      userId: resultUserId,
+      name,
+      type,
+      isPublic,
+      parentId,
+    };
     // Process the updated file document
-    const updatedFile = await fileUtils.processFile(result);
+    // const updatedFile = await fileUtils.processFile(result);
 
     // Return the updated file document
     return res.status(200).send(updatedFile);

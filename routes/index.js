@@ -46,6 +46,16 @@ const controllingRouters = ((app) => {
   router.post('/files', (req, res) => {
     FilesController.postUpload(req, res);
   });
+
+  // show document
+  router.get('/files/:id', (req, res) => {
+    FilesController.getShow(req, res);
+  });
+
+  // show paginated item
+  router.get('/files', (req, res) => {
+    FilesController.getIndex(req, res);
+  });
 });
 
 export default controllingRouters;

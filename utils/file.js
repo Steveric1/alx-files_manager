@@ -119,6 +119,16 @@ const fileUtils = {
 
     return file;
   },
+
+  /**
+   * Get file document if userid is linked
+   * @param {Object} query - query object
+   * @return file document
+   */
+  async getFile(query) {
+    const file = await dbClient.filesCollection.findOne(query);
+    return file;
+  },
 };
 
 export default fileUtils;

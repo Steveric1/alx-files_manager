@@ -554,4 +554,4 @@ File: utils/, controllers/FilesController.js, worker.js
 Copyright © 2024 ALX, All rights reserved.
 AUTHOR
 ERIC STEPHEN
-OLAYIWOLA YUNUS ABAYOMI (yuntech)
+OLAYIWOLA YUNUS ABAYOMI (yuntech developer)

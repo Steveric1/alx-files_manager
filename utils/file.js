@@ -146,61 +146,25 @@ const fileUtils = {
   },
 
   /**
-   * Makes a file public or private
-   * @request {request_object} express request obj
-   * @setPublish {boolean} true or false
-   * @return {object} error, status code and updated file
+   * Method to get file data
+   * @file file document
+   * @size size to append to file
+   * @return data
    */
-//   async publishUnpublish(request, setPublish) {
-//     const { id: fileId } = request.params;
-// 
-//     if (!basicUtils.isValidId(fileId)) { return { error: 'Unauthorized', code: 401 }; }
-// 
-//     const { userId } = await userUtils.getUserIdAndKey(request);
-// 
-//     if (!basicUtils.isValidId(userId)) { return { error: 'Unauthorized', code: 401 }; }
-// 
-//     const user = await userUtils.getUser({
-//       _id: ObjectId(userId),
-//     });
-// 
-//     if (!user) return { error: 'Unauthorized', code: 401 };
-// 
-//     const file = await this.getFile({
-//       _id: ObjectId(fileId),
-//       userId: ObjectId(userId),
-//     });
-// 
-//     if (!file) return { error: 'Not found', code: 404 };
-// 
-//     const result = await this.updateFile(
-//       {
-//         _id: ObjectId(fileId),
-//         userId: ObjectId(userId),
-//       },
-//       { $set: { isPublic: setPublish } },
-//     );
-// 
-//     const {
-//       _id: id,
-//       userId: resultUserId,
-//       name,
-//       type,
-//       isPublic,
-//       parentId,
-//     } = result.value;
-// 
-//     const updatedFile = {
-//       id,
-//       userId: resultUserId,
-//       name,
-//       type,
-//       isPublic,
-//       parentId,
-//     };
-// 
-//     return { error: null, code: 200, updatedFile };
-//   },
+  async fileData(file, size) {
+    let { localPath } = file;
+    let data;
+
+    if (size) localPath = `${localPath}_${size}`;
+
+    try {
+      data = await fsPromises.readFile(localPath);
+    } catch (error) {
+      return { error: 'Not found', code: 404 };
+    }
+
+    return { data };
+  },
 };
 
 export default fileUtils;

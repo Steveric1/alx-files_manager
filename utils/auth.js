@@ -54,4 +54,4 @@ async function getUser(request) {
 
 export {
   findUserIdByToken, findUserById, getUserById, getUser,
-;
+};
